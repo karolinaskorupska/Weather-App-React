@@ -1,0 +1,13 @@
+.Temp{
+    margin: 18px;
+    font-size: 14px;
+    color: black;
+}
+
+.Temp span{
+    margin: 0 3px;
+}
+
+.Temp .min{
+    font-weight: 800;
+}
