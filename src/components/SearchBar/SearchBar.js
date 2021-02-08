@@ -6,13 +6,13 @@ class SearchBar extends React.Component {
     city: "",
   };
 
-//   componentDidUpdate(prevProps, prevState) {
-//     if (prevState !== this.state.city) {
-//       this.setState({
-//         city: this.state.city,
-//       });
-//     }
-//   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState !== this.state.city) {
+  //     this.setState({
+  //       city: this.state.city,
+  //     });
+  //   }
+  // }
 
   onSubmit = (event) => {
     event.preventDefault();
@@ -33,7 +33,7 @@ class SearchBar extends React.Component {
     return (
       <div className="SearchBar">
         <div className="SearchBarChildren">
-          <span className="text-white">Search weather in your city</span>
+          <span className="text">Search weather in your city</span>
 
           <form onSubmit={this.onSubmit} className="formSearchCity">
             <input

@@ -117,15 +117,12 @@ const Icon = (props) => {
       break;
     default:
       return (
-        <React.Fragment>
-          <FontAwesomeIcon
-            icon="bolt"
-            className="Icon"
-            style={{ color: "#fbff78" }}
-            size="6x"
-          />
-          ;<script>{props.description}</script>
-        </React.Fragment>
+        <FontAwesomeIcon
+          icon="bolt"
+          className="Icon"
+          style={{ color: "#fbff78" }}
+          size="6x"
+        />
       );
   }
 };

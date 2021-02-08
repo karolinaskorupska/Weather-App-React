@@ -4,7 +4,8 @@ import Loader from "./Loader/Loader";
 import SearchBar from "./SearchBar/SearchBar";
 import "./App.css";
 import "./FontAwesomeIcons/index";
-import axios from 'axios';
+import axios from "axios";
+import { parse } from "@fortawesome/fontawesome-svg-core";
 
 class App extends Component {
   constructor(props) {
@@ -12,9 +13,10 @@ class App extends Component {
 
     this.state = {
       temp: [],
-      city: null,
+      city: "",
       isLoaded: false,
     };
+    this.searchCity();
   }
 
   componentDidMount() {
@@ -24,40 +26,54 @@ class App extends Component {
   }
 
   searchCity = async (city) => {
-    await axios
-      .get(`http://api.weatherbit.io/v2.0/current?city=${city}&key=4174064e0e114421b454d4ab2a53dbfa&lang=pl`)
-      .then((response) => {
+    try {
+      const corsAnywhere = "https://cors-anywhere.herokuapp.com/";
+      const apiKey = "3bf8770f15db4889a6689ddd9eaf3560";
+      const response = await axios.get(
+        `https://api.weatherbit.io/v2.0/current?city=${city}&key=${apiKey}&include=minutely`
+      );
+          const temp = response.data.data;
+          const city = response.data.city_name;
 
-        console.log(response)
-        // const temp = response.data;
-        // const city = response.data.city_name;
+        this.setState({
+          temp,
+          city,
+          isLoaded: true,
+        });
       
-        // this.setState({
-        //   temp,
-        //   city,
-        //   isLoaded: true,
-        // });
-      })
-      .catch(function(error){
-        console.log("connection error", error)
-      })
+
+      this.setState({
+        temp,
+        city,
+        isLoaded: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
   render() {
-    console.log(this.state.temp)
+    const icon = this.state.temp.map((element) => {
+      return element.weather.code;
+    });
 
-    // const icon = this.state.temp.map((element) => {
-    //   return element.weather.code;
-    // });
+    const description = this.state.temp.map((element) => {
+      return element.descriptions;
+    });
 
-    // const description = this.state.temp.map((element) => {
-    //   return element.descriptions;
-    // });
+    const minTemp = this.state.temp.map(element=>{
+      return parseInt(element.low_temp)
+    });
+
+    const maxTemp= this.state.temp.map(element=>{
+      return parseInt(element.max_temp)
+    });
 
     // Loader
-    // if (this.state.isLoaded) {
-    //   return <Loader msg={"Loading..."} />;
-    // }
+    if (!this.state.isLoaded) {
+      return <Loader msg={"Loading..."} />;
+    }
 
     return (
       <div className="App">
@@ -66,14 +82,20 @@ class App extends Component {
         </React.Fragment>
         <div className="weatherContainer">
           <span className="cityName">{this.state.city}</span>
+          {/* <WeatherBody
+            day={"Today"}
+            icon={icon}
+            minTemp={minTemp}
+            maxTemp={maxTemp}
+            description={description}
+          /> */}
           <WeatherBody
             day={"Today"}
-            icon={"SUNNY"}
-            // minTemp={temperature}
-            // maxTemp={temperature}
-            description={"SŁONECZNIE"}
+            icon={icon}
+            minTemp={15}
+            maxTemp={20}
+            description={"opis opis"}
           />
-          
         </div>
       </div>
     );
