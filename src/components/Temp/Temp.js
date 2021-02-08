@@ -4,8 +4,7 @@ import "./Temp.css";
 const Temp = (props) => {
   return (
     <div className="Temp">
-      <span className="min">{props.minTemp}</span>
-      <span className="max">{props.maxTemp}</span>
+      <span className="temperature">{props.temperature}</span>
     </div>
   );
 };

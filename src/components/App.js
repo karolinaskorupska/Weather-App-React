@@ -59,15 +59,11 @@ class App extends Component {
     });
 
     const description = this.state.temp.map((element) => {
-      return element.descriptions;
+      return element.weather.description;
     });
 
-    const minTemp = this.state.temp.map(element=>{
-      return parseInt(element.low_temp)
-    });
-
-    const maxTemp= this.state.temp.map(element=>{
-      return parseInt(element.max_temp)
+    const temperature = this.state.temp.map(element=>{
+      return parseInt(element.temp)
     });
 
     // Loader
@@ -92,8 +88,7 @@ class App extends Component {
           <WeatherBody
             day={"Today"}
             icon={icon}
-            minTemp={15}
-            maxTemp={20}
+            temperature={15}
             description={"opis opis"}
           />
         </div>
